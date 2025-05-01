@@ -51,10 +51,9 @@ const userSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-const User = mongoose.model("User", userSchema);
 
 //* Pre Hook to hash password before saving to database
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
 
   if(!this.isModified("password")) return next();   //* If password is not modified, skip hashing.
   
@@ -69,4 +68,5 @@ userSchema.pre("save", async function () {
   }
 });
 
+const User = mongoose.model("User", userSchema);
 export default User;
