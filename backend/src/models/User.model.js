@@ -68,5 +68,16 @@ userSchema.pre("save", async function (next) {
   }
 });
 
+//* Method to compare password with hash
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  try {
+    const isPasswordMatch = await bcrypt.compare(candidatePassword, this.password);
+    return isPasswordMatch;
+  } catch (error) {
+    console.error("Error in comparePassword method: ", error);
+    return false;
+  }
+};
+
 const User = mongoose.model("User", userSchema);
 export default User;
