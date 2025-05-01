@@ -3,3 +3,13 @@ Streamify is a real-time video calling and chat application built using Node.js,
 
 ## Features
 - 🚀 Tech Stack: Node.js, Express, MongoDB, React, TanStack Query, Tailwind
+- 🔐 Authentication with JWT-based login & signup flows
+
+## Authentication Workflow
+  ![Authentication Workflow](/img/Authentication%20Workflow.png)
+
+### CMD Commands to generate secure keys
+  ```
+    openssl rand -base64 32
+  ```
+
