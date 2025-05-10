@@ -8,9 +8,24 @@ import NotificationPage from "./pages/NotificationPage"
 import CallPage from "./pages/CallPage"
 import ChatPage from "./pages/ChatPage"
 import OnboardingPage from "./pages/OnboardingPage"
+import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "./lib/axios";
 
 function App() {
 
+  // tanstack query
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["theme"],
+    queryFn: async () => {
+      const res = await axiosInstance.get("/auth/me")
+      return res.data;
+    },
+  });
+
+  console.log({isLoading})
+  console.log({data})
+  console.log({error})
+  
   return (
     <div className="h-screen" data-theme="cupcake">
       <Routes>
