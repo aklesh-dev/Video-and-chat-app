@@ -16,7 +16,7 @@ function App() {
   const { isLoading, authUser } = useAuthUser();
 
   const isAuthenticated = Boolean(authUser);  // check if user is authenticated
-  const isOnboarding = authUser?.isOnboarding;  // check if user has completed onboarding
+  const isOnboarding = authUser?.isOnBoarded;  // check if user has completed onboarding
 
   if (isLoading) return <PageLoader />;  // show page loader while loading auth data
   //// toast.error("Error: " + error.message);  // show error message if auth data loading fails
@@ -25,8 +25,8 @@ function App() {
     <div className="h-screen" data-theme="cupcake">
       <Routes>
         <Route path="/" element={isAuthenticated && isOnboarding ? (<HomePage />) : (<Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />)} />
-        <Route path="/signup" element={!isAuthenticated ? <SignupPage /> : <Navigate to="/" />} />
-        <Route path="/login" element={!isAuthenticated ? <LoginPage /> : <Navigate to="/" />} />
+        <Route path="/signup" element={!isAuthenticated ? <SignupPage /> : <Navigate to={ isOnboarding ? "/" : "/onboarding"} />} />
+        <Route path="/login" element={!isAuthenticated ? <LoginPage /> : <Navigate to={ isOnboarding ? "/" : "/onboarding"} />} />
         <Route path="/notifications" element={isAuthenticated ? <NotificationPage /> : <Navigate to="/login" />} />
         <Route path="/call" element={isAuthenticated ? <CallPage /> : <Navigate to="/login" />} />
         <Route path="/chat" element={isAuthenticated ? <ChatPage /> : <Navigate to="/login" />} />
