@@ -11,10 +11,12 @@ import OnboardingPage from "./pages/OnboardingPage"
 import PageLoader from "./components/PageLoader";
 import useAuthUser from "./hooks/useAuthUser";
 import Layout from "./components/Layout";
+import useThemeStore from "./store/useThemeStore";
 
 function App() {
 
   const { isLoading, authUser } = useAuthUser();
+  const { theme } = useThemeStore();
 
   const isAuthenticated = Boolean(authUser);  // check if user is authenticated
   const isOnboarding = authUser?.isOnBoarded;  // check if user has completed onboarding
@@ -23,7 +25,7 @@ function App() {
   //// toast.error("Error: " + error.message);  // show error message if auth data loading fails
 
   return (
-    <div className="h-screen" data-theme="forest">
+    <div className="h-screen" data-theme={theme}>
       <Routes>
         <Route
           path="/"
