@@ -10,6 +10,7 @@ import ChatPage from "./pages/ChatPage"
 import OnboardingPage from "./pages/OnboardingPage"
 import PageLoader from "./components/PageLoader";
 import useAuthUser from "./hooks/useAuthUser";
+import Layout from "./components/Layout";
 
 function App() {
 
@@ -22,11 +23,20 @@ function App() {
   //// toast.error("Error: " + error.message);  // show error message if auth data loading fails
 
   return (
-    <div className="h-screen" data-theme="cupcake">
+    <div className="h-screen" data-theme="forest">
       <Routes>
-        <Route path="/" element={isAuthenticated && isOnboarding ? (<HomePage />) : (<Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />)} />
-        <Route path="/signup" element={!isAuthenticated ? <SignupPage /> : <Navigate to={ isOnboarding ? "/" : "/onboarding"} />} />
-        <Route path="/login" element={!isAuthenticated ? <LoginPage /> : <Navigate to={ isOnboarding ? "/" : "/onboarding"} />} />
+        <Route
+          path="/"
+          element={isAuthenticated && isOnboarding ? (
+            <Layout showSideBar>
+              <HomePage />
+            </Layout>
+          ) : (
+            <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+          )}
+        />
+        <Route path="/signup" element={!isAuthenticated ? <SignupPage /> : <Navigate to={isOnboarding ? "/" : "/onboarding"} />} />
+        <Route path="/login" element={!isAuthenticated ? <LoginPage /> : <Navigate to={isOnboarding ? "/" : "/onboarding"} />} />
         <Route path="/notifications" element={isAuthenticated ? <NotificationPage /> : <Navigate to="/login" />} />
         <Route path="/call" element={isAuthenticated ? <CallPage /> : <Navigate to="/login" />} />
         <Route path="/chat" element={isAuthenticated ? <ChatPage /> : <Navigate to="/login" />} />
